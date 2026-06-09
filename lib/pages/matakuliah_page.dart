@@ -130,7 +130,7 @@ class _MatakuliahPageState extends State<MatakuliahPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Matakuliah 24312092')),
+      appBar: AppBar(title: const Text('Kelola Data Matakuliah')),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _matakuliah.isEmpty

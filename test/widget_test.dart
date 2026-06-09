@@ -16,7 +16,7 @@ void main() {
   ) async {
     await tester.pumpWidget(const MyApp());
 
-    expect(find.text('Login'), findsNWidgets(2));
+    expect(find.text('Login Admin'), findsOneWidget);
     expect(find.text('Akun: admin / admin'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField).at(0), 'admin');
@@ -30,11 +30,11 @@ void main() {
     await tester.tap(find.byType(FilledButton));
     await tester.pumpAndSettle();
 
-    expect(find.text('Selamat datang, admin'), findsOneWidget);
+    expect(find.text('Dashboard Admin'), findsOneWidget);
 
     await tester.tap(find.text('Logout'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Login'), findsNWidgets(2));
+    expect(find.text('Login Admin'), findsOneWidget);
   });
 }

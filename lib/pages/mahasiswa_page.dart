@@ -127,7 +127,7 @@ class _MahasiswaPageState extends State<MahasiswaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Mahasiswa 24312092')),
+      appBar: AppBar(title: const Text('Kelola Data Mahasiswa')),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _mahasiswa.isEmpty

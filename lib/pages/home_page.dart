@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home 24312092'),
+        title: const Text('Home Admin'),
         actions: [
           IconButton(
             onPressed: () => _logout(context),
@@ -47,13 +47,13 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     children: [
                       Icon(
-                        Icons.school,
+                        Icons.dashboard,
                         size: 64,
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        'Selamat datang, $username',
+                        'Dashboard Admin',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       const Text(
-                        'Aplikasi CRUD UAS 24312092',
+                        'Aplikasi Admin Akademik UAS 24312092',
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -84,14 +84,14 @@ class HomePage extends StatelessWidget {
                         onPressed: () =>
                             _openPage(context, const MahasiswaPage()),
                         icon: const Icon(Icons.people),
-                        label: const Text('Menu Mahasiswa'),
+                        label: const Text('Kelola Data Mahasiswa'),
                       ),
                       const SizedBox(height: 12),
                       FilledButton.icon(
                         onPressed: () =>
                             _openPage(context, const MatakuliahPage()),
                         icon: const Icon(Icons.menu_book),
-                        label: const Text('Menu Matakuliah'),
+                        label: const Text('Kelola Data Matakuliah'),
                       ),
                     ],
                   ),
