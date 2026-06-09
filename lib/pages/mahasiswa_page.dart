@@ -39,6 +39,9 @@ class _MahasiswaPageState extends State<MahasiswaPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22),
+          ),
           title: Text(isEdit ? 'Edit Mahasiswa' : 'Tambah Mahasiswa'),
           content: SingleChildScrollView(
             child: Column(
@@ -46,15 +49,26 @@ class _MahasiswaPageState extends State<MahasiswaPage> {
               children: [
                 TextField(
                   controller: npmController,
-                  decoration: const InputDecoration(labelText: 'NPM'),
+                  decoration: const InputDecoration(
+                    labelText: 'NPM',
+                    prefixIcon: Icon(Icons.badge),
+                  ),
                 ),
+                const SizedBox(height: 14),
                 TextField(
                   controller: namaController,
-                  decoration: const InputDecoration(labelText: 'Nama'),
+                  decoration: const InputDecoration(
+                    labelText: 'Nama',
+                    prefixIcon: Icon(Icons.person),
+                  ),
                 ),
+                const SizedBox(height: 14),
                 TextField(
                   controller: prodiController,
-                  decoration: const InputDecoration(labelText: 'Prodi'),
+                  decoration: const InputDecoration(
+                    labelText: 'Prodi',
+                    prefixIcon: Icon(Icons.school),
+                  ),
                 ),
               ],
             ),
@@ -102,6 +116,9 @@ class _MahasiswaPageState extends State<MahasiswaPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22),
+          ),
           title: const Text('Hapus Mahasiswa'),
           content: const Text('Yakin ingin menghapus data ini?'),
           actions: [
@@ -128,39 +145,83 @@ class _MahasiswaPageState extends State<MahasiswaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Kelola Data Mahasiswa')),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _mahasiswa.isEmpty
-          ? const Center(child: Text('Belum ada data mahasiswa'))
-          : ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: _mahasiswa.length,
-              itemBuilder: (context, index) {
-                final item = _mahasiswa[index];
-                return Card(
-                  child: ListTile(
-                    title: Text(item['nama'] ?? ''),
-                    subtitle: Text(
-                      'NPM: ${item['npm']}\nProdi: ${item['prodi']}',
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFF5F7FB), Color(0xFFEAF0FF)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : _mahasiswa.isEmpty
+            ? const Center(child: Text('Belum ada data mahasiswa'))
+            : ListView.builder(
+                padding: const EdgeInsets.all(18),
+                itemCount: _mahasiswa.length,
+                itemBuilder: (context, index) {
+                  final item = _mahasiswa[index];
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 52,
+                            height: 52,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.indigo.shade50,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Icon(
+                              Icons.person,
+                              color: Colors.indigo.shade800,
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item['nama'] ?? '',
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text('NPM: ${item['npm']}'),
+                                const SizedBox(height: 3),
+                                Text('Prodi: ${item['prodi']}'),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              IconButton(
+                                onPressed: () => _showForm(item: item),
+                                icon: const Icon(Icons.edit),
+                                color: Colors.indigo.shade700,
+                              ),
+                              IconButton(
+                                onPressed: () =>
+                                    _deleteMahasiswa(item['id'] as int),
+                                icon: const Icon(Icons.delete),
+                                color: Colors.red.shade600,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                    isThreeLine: true,
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          onPressed: () => _showForm(item: item),
-                          icon: const Icon(Icons.edit),
-                        ),
-                        IconButton(
-                          onPressed: () => _deleteMahasiswa(item['id'] as int),
-                          icon: const Icon(Icons.delete),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+                  );
+                },
+              ),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showForm(),
         icon: const Icon(Icons.add),

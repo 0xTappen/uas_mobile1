@@ -41,6 +41,9 @@ class _MatakuliahPageState extends State<MatakuliahPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22),
+          ),
           title: Text(isEdit ? 'Edit Matakuliah' : 'Tambah Matakuliah'),
           content: SingleChildScrollView(
             child: Column(
@@ -48,16 +51,27 @@ class _MatakuliahPageState extends State<MatakuliahPage> {
               children: [
                 TextField(
                   controller: kodeController,
-                  decoration: const InputDecoration(labelText: 'Kode MK'),
+                  decoration: const InputDecoration(
+                    labelText: 'Kode MK',
+                    prefixIcon: Icon(Icons.confirmation_number),
+                  ),
                 ),
+                const SizedBox(height: 14),
                 TextField(
                   controller: namaController,
-                  decoration: const InputDecoration(labelText: 'Nama MK'),
+                  decoration: const InputDecoration(
+                    labelText: 'Nama MK',
+                    prefixIcon: Icon(Icons.menu_book),
+                  ),
                 ),
+                const SizedBox(height: 14),
                 TextField(
                   controller: sksController,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(labelText: 'SKS'),
+                  decoration: const InputDecoration(
+                    labelText: 'SKS',
+                    prefixIcon: Icon(Icons.numbers),
+                  ),
                 ),
               ],
             ),
@@ -105,6 +119,9 @@ class _MatakuliahPageState extends State<MatakuliahPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22),
+          ),
           title: const Text('Hapus Matakuliah'),
           content: const Text('Yakin ingin menghapus data ini?'),
           actions: [
@@ -131,39 +148,83 @@ class _MatakuliahPageState extends State<MatakuliahPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Kelola Data Matakuliah')),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _matakuliah.isEmpty
-          ? const Center(child: Text('Belum ada data matakuliah'))
-          : ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: _matakuliah.length,
-              itemBuilder: (context, index) {
-                final item = _matakuliah[index];
-                return Card(
-                  child: ListTile(
-                    title: Text(item['nama_mk'] ?? ''),
-                    subtitle: Text(
-                      'Kode: ${item['kode_mk']}\nSKS: ${item['sks']}',
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFF5F7FB), Color(0xFFEAF0FF)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : _matakuliah.isEmpty
+            ? const Center(child: Text('Belum ada data matakuliah'))
+            : ListView.builder(
+                padding: const EdgeInsets.all(18),
+                itemCount: _matakuliah.length,
+                itemBuilder: (context, index) {
+                  final item = _matakuliah[index];
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 52,
+                            height: 52,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.indigo.shade50,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Icon(
+                              Icons.menu_book,
+                              color: Colors.indigo.shade800,
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item['nama_mk'] ?? '',
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text('Kode MK: ${item['kode_mk']}'),
+                                const SizedBox(height: 3),
+                                Text('SKS: ${item['sks']}'),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              IconButton(
+                                onPressed: () => _showForm(item: item),
+                                icon: const Icon(Icons.edit),
+                                color: Colors.indigo.shade700,
+                              ),
+                              IconButton(
+                                onPressed: () =>
+                                    _deleteMatakuliah(item['id'] as int),
+                                icon: const Icon(Icons.delete),
+                                color: Colors.red.shade600,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                    isThreeLine: true,
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          onPressed: () => _showForm(item: item),
-                          icon: const Icon(Icons.edit),
-                        ),
-                        IconButton(
-                          onPressed: () => _deleteMatakuliah(item['id'] as int),
-                          icon: const Icon(Icons.delete),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+                  );
+                },
+              ),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showForm(),
         icon: const Icon(Icons.add),
