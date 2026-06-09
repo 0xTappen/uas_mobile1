@@ -16,14 +16,14 @@ class DatabaseHelper {
 
   Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
-    final path = join(databasePath, 'uas_2431209.db');
+    final path = join(databasePath, 'uas_24312092.db');
 
     return openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE matakuliah_2431209 (
+      CREATE TABLE matakuliah_24312092 (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         kode_mk TEXT,
         nama_mk TEXT,
@@ -32,7 +32,7 @@ class DatabaseHelper {
     ''');
 
     await db.execute('''
-      CREATE TABLE mahasiswa_2431209 (
+      CREATE TABLE mahasiswa_24312092 (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         npm TEXT,
         nama TEXT,
@@ -43,18 +43,18 @@ class DatabaseHelper {
 
   Future<int> insertMahasiswa(Map<String, dynamic> data) async {
     final db = await database;
-    return db.insert('mahasiswa_2431209', data);
+    return db.insert('mahasiswa_24312092', data);
   }
 
   Future<List<Map<String, dynamic>>> getMahasiswa() async {
     final db = await database;
-    return db.query('mahasiswa_2431209', orderBy: 'id DESC');
+    return db.query('mahasiswa_24312092', orderBy: 'id DESC');
   }
 
   Future<int> updateMahasiswa(int id, Map<String, dynamic> data) async {
     final db = await database;
     return db.update(
-      'mahasiswa_2431209',
+      'mahasiswa_24312092',
       data,
       where: 'id = ?',
       whereArgs: [id],
@@ -63,23 +63,23 @@ class DatabaseHelper {
 
   Future<int> deleteMahasiswa(int id) async {
     final db = await database;
-    return db.delete('mahasiswa_2431209', where: 'id = ?', whereArgs: [id]);
+    return db.delete('mahasiswa_24312092', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<int> insertMatakuliah(Map<String, dynamic> data) async {
     final db = await database;
-    return db.insert('matakuliah_2431209', data);
+    return db.insert('matakuliah_24312092', data);
   }
 
   Future<List<Map<String, dynamic>>> getMatakuliah() async {
     final db = await database;
-    return db.query('matakuliah_2431209', orderBy: 'id DESC');
+    return db.query('matakuliah_24312092', orderBy: 'id DESC');
   }
 
   Future<int> updateMatakuliah(int id, Map<String, dynamic> data) async {
     final db = await database;
     return db.update(
-      'matakuliah_2431209',
+      'matakuliah_24312092',
       data,
       where: 'id = ?',
       whereArgs: [id],
@@ -88,6 +88,6 @@ class DatabaseHelper {
 
   Future<int> deleteMatakuliah(int id) async {
     final db = await database;
-    return db.delete('matakuliah_2431209', where: 'id = ?', whereArgs: [id]);
+    return db.delete('matakuliah_24312092', where: 'id = ?', whereArgs: [id]);
   }
 }

@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home 2431209'),
+        title: const Text('Home 24312092'),
         actions: [
           IconButton(
             onPressed: () => _logout(context),
@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       const Text(
-                        'Aplikasi CRUD UAS 2431209',
+                        'Aplikasi CRUD UAS 24312092',
                         textAlign: TextAlign.center,
                       ),
                     ],

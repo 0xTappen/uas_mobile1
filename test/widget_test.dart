@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:uas_2431209/main.dart';
+import 'package:uas_24312092/main.dart';
 
 void main() {
   testWidgets('Login and logout with static account', (
